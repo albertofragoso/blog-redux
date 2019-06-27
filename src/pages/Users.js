@@ -1,4 +1,5 @@
 import React from 'react'
+import UsersList from '../components/UsersLists'
 
 import './styles/Users.css'
 
@@ -12,7 +13,7 @@ const Users = () => {
         </h1>
       </div>
       <div className="Users__container">
-        Something...
+        <UsersList />
       </div>
     </div>
   )
