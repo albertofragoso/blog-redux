@@ -1,11 +1,28 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import * as usersActions from '../actions/usersActions'
 
 import './styles/UsersList.css'
 
 class UsersList extends Component {
 
-  createRows = () => {}
+  componentDidMount() {
+    this.props.getAll()
+  }
+
+  createRows = () => {
+    const { users } = this.props
+    return(
+      users.map((user, i) => (
+          <tr key={i}>
+            <th scope="row">{ i + 1 }</th>
+            <td>{user.name}</td>
+            <td>{user.email}</td>
+            <td>{user.website}</td>
+          </tr>
+      ))
+    )
+  }
 
   render() {
     return(
@@ -26,8 +43,8 @@ class UsersList extends Component {
   }
 }
 
-const mapStateToProps = reducers => {
-  return reducers.usersReducer
+const mapStateToProps = ({ usersReducer }) => {
+  return usersReducer
 }
 
-export default connect(mapStateToProps, { /* Actions */  })(UsersList)
+export default connect(mapStateToProps, usersActions)(UsersList)
