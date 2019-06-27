@@ -1,0 +1,16 @@
+.Users__hero {
+  height: 50vh;
+  background: url('../../images/blog.jpg');
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #FFFFFF;
+  text-shadow: 1px 1px 2px black;
+}
+
+.Users__container {
+  width: 100%;
+  max-width: 580px;
+  margin: 0 auto;
+  padding: 1rem;
+}
