@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import * as usersActions from '../actions/usersActions'
 
 import './styles/UsersList.css'
+import PageLoading from './PageLoading'
 
 class UsersList extends Component {
 
@@ -25,6 +26,10 @@ class UsersList extends Component {
   }
 
   render() {
+    const { loading, error } = this.props
+    
+    if(loading) return( <PageLoading />)
+    
     return(
       <table className="Users__table table table-hover">
         <thead className="thead-dark">
