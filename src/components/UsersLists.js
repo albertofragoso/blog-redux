@@ -34,19 +34,22 @@ class UsersList extends Component {
     if(error) return <PageError error={error}/>
 
     return(
-      <table className="Users__table table table-hover">
-        <thead className="thead-dark">
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Name</th>
-            <th scope="col">Email</th>
-            <th scope="col">Website</th>
-          </tr>
-        </thead>
-        <tbody>
-          { this.createRows() }
-        </tbody>
-      </table>
+      <>
+        <h1>Users</h1>
+        <table className="Users__table table table-hover">
+          <thead className="thead-dark">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Name</th>
+              <th scope="col">Email</th>
+              <th scope="col">Website</th>
+            </tr>
+          </thead>
+          <tbody>
+            { this.createRows() }
+          </tbody>
+        </table>
+      </>
     )
   }
 }

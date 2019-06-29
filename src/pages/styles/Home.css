@@ -1,0 +1,14 @@
+.Home {
+  height: 90vh;
+  background: url('../../images/blog.jpg');
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Home__info {
+  color: #FFFFFF;
+  text-shadow: 1px 1px 2px black;
+  margin: 2rem;
+  text-align: center;
+}
