@@ -33,8 +33,20 @@ a.link-unstyled:hover{
   border: 1px solid #53d295;
 }
 
-.btn-primary:hover {
+.btn.btn-primary:not(:disabled):not(.disabled):hover {
   background: transparent;
   color: #53d295;
   border: 1px solid #53d295;
+}
+
+.btn.btn-primary:not(:disabled):not(.disabled):focus {
+  background: #53d295;
+  border: 1px solid #53d295;
+  color: #FFFFFF;
+}
+
+.btn.btn-primary:not(:disabled):not(.disabled):active {
+  background: #53d295;
+  border: 1px solid #53d295;
+  color: #FFFFFF;
 }
