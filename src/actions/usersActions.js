@@ -8,7 +8,7 @@ export const getAll = () => async dispatch => {
   })
 
   try {
-    const response = await axios.get('https://jsonplaceholder.typicode.com/users')
+    const response = await axios.get('https://jsonplaceholder.typicode.com/userss')
     dispatch({
       type: GET_ALL,
       payload: response.data

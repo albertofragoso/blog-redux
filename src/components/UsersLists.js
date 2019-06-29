@@ -4,6 +4,7 @@ import * as usersActions from '../actions/usersActions'
 
 import './styles/UsersList.css'
 import PageLoading from './PageLoading'
+import PageError from './PageError'
 
 class UsersList extends Component {
 
@@ -28,8 +29,10 @@ class UsersList extends Component {
   render() {
     const { loading, error } = this.props
     
-    if(loading) return( <PageLoading />)
-    
+    if(loading) return <PageLoading />
+
+    if(error) return <PageError error={error}/>
+
     return(
       <table className="Users__table table table-hover">
         <thead className="thead-dark">
