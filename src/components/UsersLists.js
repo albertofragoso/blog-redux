@@ -13,7 +13,8 @@ import PageError from './PageError'
 class UsersList extends Component {
 
   componentDidMount() {
-    this.props.getAll()
+    const { users } = this.props
+    if(!users.length) this.props.getAll()
   }
 
   createRows = () => {
