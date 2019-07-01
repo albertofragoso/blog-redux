@@ -27,24 +27,35 @@ export const getByUser = userId => async (dispatch, getState) => {
   const { users } = getState().usersReducer
   const { posts } = getState().postsReducer
 
-  const user_id = users[userId].id
-  const response = await axios.get(`https://jsonplaceholder.typicode.com/posts?userId=${user_id}`)
-
-  const updatedPosts = [
-    ...posts,
-    response.data
-  ]
-
-  const updatedUsers = [ ...users ]
-  updatedUsers[userId].postsId = updatedPosts.length - 1
-
   dispatch({
-    type: USERS_GET_ALL,
-    payload: updatedUsers
+    type: LOADING
   })
 
-  dispatch({
-    type: GET_BY_USER,
-    payload: updatedPosts
-  })
+  try {
+    const user_id = users[userId].id
+    const response = await axios.get(`https://jsonplaceholder.typicode.com/posts?userId=${user_id}`)
+  
+    const updatedPosts = [
+      ...posts,
+      response.data
+    ]
+    
+    dispatch({
+      type: GET_BY_USER,
+      payload: updatedPosts
+    })
+  
+    const updatedUsers = [ ...users ]
+    updatedUsers[userId].postsId = updatedPosts.length - 1
+  
+    dispatch({
+      type: USERS_GET_ALL,
+      payload: updatedUsers
+    })
+  } catch(error) {
+    dispatch({
+      type: ERROR,
+      payload: 'Posts were not found'
+    })
+  }
 }

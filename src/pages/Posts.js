@@ -35,9 +35,7 @@ class Posts extends Component {
 
     const user = users[userId]
 
-    if(!users.length || loading) return <PageLoading />
-
-    if(error) return <PageError error={error} />
+    if(!users.length || loading || error ) return
 
     return(
       <div className="Posts__hero">
@@ -56,9 +54,7 @@ class Posts extends Component {
       match: { params: { userId } }
     } = this.props
 
-    if(!users.length) return
-
-    if(usersReducer.error) return
+    if(!users.length || usersReducer.error) return
 
     if(loading) return <PageLoading />
 
@@ -70,11 +66,16 @@ class Posts extends Component {
 
     const { postsId } = users[userId]
 
-    return posts[postsId].map((post, i) => (
-        <div className="" key={i}>
-          <h4>{post.title}</h4>
-          <p>{post.description}</p>
-        </div>
+    return posts[postsId].map(post => (
+      <>
+        <div className="media" key={ post.id }>
+          <div className="media-body">
+            <h5 className="mt-0">{post.title}</h5>
+            <p>{post.body}</p>
+          </div>
+        </div> 
+        <hr />
+      </>
     ))
   }
 
