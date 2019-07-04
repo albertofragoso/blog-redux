@@ -9,7 +9,7 @@ import * as usersActions from '../actions/usersActions'
 import * as postsActions from '../actions/postsActions'
 
 const { getAll: getAllUsers } = usersActions
-const { getByUser: getPostsByUser } = postsActions
+const { getByUser: getPostsByUser, openToClose } = postsActions
 
 class Posts extends Component {
 
@@ -66,18 +66,23 @@ class Posts extends Component {
 
     const { postsId } = users[userId]
 
-    return posts[postsId].map(post => (
-      <>
-        <div className="media" key={ post.id }>
+    return this.showInfo(posts, postsId)
+  }
+
+  showInfo = (posts, postsId) => (
+    posts[postsId].map((post, i) => (
+      <div key={posts.id}>
+        <div className="media" onClick={() => this.props.openToClose(postsId, i)}>
           <div className="media-body">
             <h5 className="mt-0">{post.title}</h5>
             <p>{post.body}</p>
+            {post.isOpen ? 'Open' :  'Close'}
           </div>
-        </div> 
+        </div>
         <hr />
-      </>
+      </div>
     ))
-  }
+  )
 
   render() {
     console.log(this.props)
@@ -102,7 +107,8 @@ const mapStateToProps = ({ usersReducer, postsReducer }) => {
 
 const mapActionsToProps = {
   getAllUsers,
-  getPostsByUser
+  getPostsByUser,
+  openToClose
 }
 
 export default connect(mapStateToProps, mapActionsToProps)(Posts)

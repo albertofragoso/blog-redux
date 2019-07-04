@@ -1,4 +1,4 @@
-import { GET_ALL, GET_BY_USER, LOADING, ERROR } from "../types/postsTypes";
+import { GET_ALL, UPDATE, LOADING, ERROR } from "../types/postsTypes";
 
 const INITIAL_STATE = {
   posts: [],
@@ -11,7 +11,7 @@ export default (state = INITIAL_STATE, action) => {
     case GET_ALL:
       return { ...state, posts: action.payload, loading: false, error: null }
 
-    case GET_BY_USER:
+    case UPDATE:
       return { ...state, posts: action.payload, loading: false, error: null }
 
     case LOADING:
