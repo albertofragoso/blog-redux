@@ -1,0 +1,11 @@
+.Comments {
+  cursor: pointer;
+}
+
+.Comments__comment {
+  margin: 15px 0;
+}
+
+.Comments__notFound {
+  color: red
+}

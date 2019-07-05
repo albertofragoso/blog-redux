@@ -7,9 +7,10 @@ import PageError from '../components/PageError'
 
 import * as usersActions from '../actions/usersActions'
 import * as postsActions from '../actions/postsActions'
+import Comments from '../components/Comments';
 
 const { getAll: getAllUsers } = usersActions
-const { getByUser: getPostsByUser, openToClose } = postsActions
+const { getByUser: getPostsByUser, openToClose, getComments } = postsActions
 
 class Posts extends Component {
 
@@ -70,13 +71,13 @@ class Posts extends Component {
   }
 
   showInfo = (posts, postsId) => (
-    posts[postsId].map((post, i) => (
+    posts[postsId].map((post, commentId) => (
       <div key={posts.id}>
-        <div className="media" onClick={() => this.props.openToClose(postsId, i)}>
+        <div className="media" onClick={() => this.showComments(postsId, commentId, post.comments)}>
           <div className="media-body">
             <h5 className="mt-0">{post.title}</h5>
             <p>{post.body}</p>
-            {post.isOpen ? 'Open' :  'Close'}
+            {post.isOpen ? <Comments comments={post.comments} /> :  ''}
           </div>
         </div>
         <hr />
@@ -84,6 +85,10 @@ class Posts extends Component {
     ))
   )
 
+  showComments = (postsId, commentId, comments) => {
+    this.props.openToClose(postsId, commentId)
+    if(!comments.length) this.props.getComments(postsId, commentId)
+  }
   render() {
     console.log(this.props)
 
@@ -108,7 +113,8 @@ const mapStateToProps = ({ usersReducer, postsReducer }) => {
 const mapActionsToProps = {
   getAllUsers,
   getPostsByUser,
-  openToClose
+  openToClose, 
+  getComments
 }
 
 export default connect(mapStateToProps, mapActionsToProps)(Posts)

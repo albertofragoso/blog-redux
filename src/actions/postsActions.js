@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { GET_ALL, UPDATE, LOADING, ERROR } from '../types/postsTypes'
+import { GET_ALL, UPDATE, LOADING, ERROR, COMMENTS_UPDATE, COMMENTS_LOADING, COMMENTS_ERROR } from "../types/postsTypes";
 import * as userTypes from '../types/usersTypes'
 
 const { GET_ALL: USERS_GET_ALL } = userTypes
@@ -88,5 +88,38 @@ export const openToClose = (postsId, commentId) => (dispatch, getState) => {
     payload: updatedPosts
   })
 
-  //alert(postsId, commentId)
+}
+
+export const getComments = (postId, commentId) => async (dispatch, getState) => {
+  const { posts } = getState().postsReducer
+  const choosenPost = posts[postId][commentId]
+
+  dispatch({
+    type: COMMENTS_LOADING
+  })
+
+  try {
+    const response = await axios.get(`https://jsonplaceholder.typicode.com/comments?postId=${choosenPost.id}`)
+  
+    const updatedPost = {
+      ...choosenPost,
+      comments: response.data
+    }
+  
+    const updatedPosts = [...posts]
+    updatedPosts[postId] = [
+      ...posts[postId]
+    ]
+    updatedPosts[postId][commentId] = updatedPost
+  
+    dispatch({
+      type: COMMENTS_UPDATE,
+      payload: updatedPosts,
+    })
+  } catch(error) {
+    dispatch({
+      type: COMMENTS_ERROR,
+      payload: 'Comments were not found'
+    })
+  }
 }
